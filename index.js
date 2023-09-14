@@ -219,12 +219,21 @@ function handleButtonControl(keyCode, isPressed) {
     }
 }
 // Event listeners for left and right buttons
-// Event listeners for left and right buttons
 leftButton.addEventListener("mousedown", () => {
     keys.a.pressed = true; // Set 'a' key as pressed
 });
 
 leftButton.addEventListener("mouseup", () => {
+    keys.a.pressed = false; // Set 'a' key as released
+});
+
+leftButton.addEventListener("touchstart", (event) => {
+    event.preventDefault(); // Prevent the default touch behavior
+    keys.a.pressed = true; // Set 'a' key as pressed
+});
+
+leftButton.addEventListener("touchend", (event) => {
+    event.preventDefault(); // Prevent the default touch behavior
     keys.a.pressed = false; // Set 'a' key as released
 });
 
@@ -235,10 +244,25 @@ rightButton.addEventListener("mousedown", () => {
 rightButton.addEventListener("mouseup", () => {
     keys.d.pressed = false; // Set 'd' key as released
 });
+
+rightButton.addEventListener("touchstart", (event) => {
+    event.preventDefault(); // Prevent the default touch behavior
+    keys.d.pressed = true; // Set 'd' key as pressed
+});
+
+rightButton.addEventListener("touchend", (event) => {
+    event.preventDefault(); // Prevent the default touch behavior
+    keys.d.pressed = false; // Set 'd' key as released
+});
 // Event listener for jump button
 jumpButton.addEventListener("click", () => {
     shouldJump = true;
     player.velocity.y = -3; // Adjust this value as needed
 });
 
+jumpButton.addEventListener("touchstart", (event) => {
+    event.preventDefault(); // Prevent the default touch behavior
+    shouldJump = true;
+    player.velocity.y = -3; // Adjust this value as needed
+});
 //console.log(floorCollisions);

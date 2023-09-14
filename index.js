@@ -89,6 +89,7 @@ const player = new Player({
 //    y: 100,
 //});
 
+// Control
 const keys = {
     d: {
         pressed: false,
@@ -98,6 +99,15 @@ const keys = {
     },
 };
 
+let shouldJump = false;
+let shouldMoveLeft = false;
+let shouldMoveRight = false;
+
+const jumpButton = document.getElementById("jumpButton");
+const leftButton = document.getElementById("leftButton");
+const rightButton = document.getElementById("rightButton");
+
+//background
 const background = new Sprite({
     position: {
         x: 0,
@@ -191,6 +201,44 @@ window.addEventListener("keyup", (event) => {
             keys.a.pressed = false;
             break;
     }
+});
+
+function handleButtonControl(keyCode, isPressed) {
+    switch (keyCode) {
+        case "left":
+            console.log("Left button " + (isPressed ? "pressed" : "released"));
+            shouldMoveLeft = isPressed;
+            shouldMoveRight = !isPressed; // Ensure that the right button is released
+            break;
+        case "right":
+            console.log("Right button " + (isPressed ? "pressed" : "released"));
+            shouldMoveRight = isPressed;
+            shouldMoveLeft = !isPressed; // Ensure that the left button is released
+            break;
+        // Add cases for other button controls if needed
+    }
+}
+// Event listeners for left and right buttons
+// Event listeners for left and right buttons
+leftButton.addEventListener("mousedown", () => {
+    keys.a.pressed = true; // Set 'a' key as pressed
+});
+
+leftButton.addEventListener("mouseup", () => {
+    keys.a.pressed = false; // Set 'a' key as released
+});
+
+rightButton.addEventListener("mousedown", () => {
+    keys.d.pressed = true; // Set 'd' key as pressed
+});
+
+rightButton.addEventListener("mouseup", () => {
+    keys.d.pressed = false; // Set 'd' key as released
+});
+// Event listener for jump button
+jumpButton.addEventListener("click", () => {
+    shouldJump = true;
+    player.velocity.y = -3; // Adjust this value as needed
 });
 
 //console.log(floorCollisions);
